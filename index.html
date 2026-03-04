@@ -38,41 +38,10 @@
     color: var(--text);
     font-family: var(--font-body);
     overflow-x: hidden;
-    cursor: none;
   }
   a { color: inherit; text-decoration: none; }
   img { max-width: 100%; display: block; }
-  button { cursor: none; }
 
-  /* ===== CUSTOM CURSOR ===== */
-  #cursor-dot {
-    position: fixed; top: 0; left: 0;
-    width: 8px; height: 8px;
-    background: var(--teal-light);
-    border-radius: 50%;
-    pointer-events: none; z-index: 9999;
-    transform: translate(-50%, -50%);
-    transition: width 0.2s, height 0.2s, background 0.2s;
-  }
-  #cursor-ring {
-    position: fixed; top: 0; left: 0;
-    width: 36px; height: 36px;
-    border: 1.5px solid var(--teal);
-    border-radius: 50%;
-    pointer-events: none; z-index: 9998;
-    transform: translate(-50%, -50%);
-    transition: width 0.35s cubic-bezier(0.23,1,0.32,1),
-                height 0.35s cubic-bezier(0.23,1,0.32,1),
-                opacity 0.35s;
-  }
-  body:has(a:hover) #cursor-dot,
-  body:has(button:hover) #cursor-dot {
-    width: 14px; height: 14px; background: var(--teal-light);
-  }
-  body:has(a:hover) #cursor-ring,
-  body:has(button:hover) #cursor-ring {
-    width: 56px; height: 56px; opacity: 0.5;
-  }
 
   /* ===== CANVAS BACKGROUND ===== */
   #bg-canvas {
@@ -111,7 +80,7 @@
     box-shadow: 0 8px 40px rgba(0,0,0,0.4);
   }
   .nav-logo {
-    height: 44px;
+    height: 100px;
     filter: drop-shadow(0 0 12px rgba(27, 168, 138, 0.5));
     transition: filter 0.3s;
   }
@@ -474,7 +443,6 @@
     overflow: hidden;
     transition: transform 0.45s cubic-bezier(0.23,1,0.32,1),
                 border-color 0.4s, box-shadow 0.45s;
-    cursor: none;
   }
   .work-card:hover {
     transform: translateY(-12px) scale(1.01);
@@ -722,7 +690,7 @@
     transition: opacity 0.8s 0.3s, visibility 0.8s 0.3s;
   }
   #loader.hidden { opacity: 0; visibility: hidden; }
-  .loader-logo { height: 72px; animation: breathe 1.5s ease-in-out infinite; }
+  .loader-logo { height: 180px; animation: breathe 1.5s ease-in-out infinite; }
   @keyframes breathe {
     0%, 100% { filter: drop-shadow(0 0 8px rgba(27,168,138,0.4)); }
     50% { filter: drop-shadow(0 0 24px rgba(36,212,175,0.7)); }
@@ -757,14 +725,10 @@
 
 <!-- Loader -->
 <div id="loader">
-  <img class="loader-logo" src="/mnt/user-data/uploads/Gemini_Generated_Image_yjeem0yjeem0yjee-Photoroom.png" alt="Dijivoo"/>
+  <img class="loader-logo" src="Logo.png" alt="Dijivoo"/>
   <div class="loader-bar"><div class="loader-fill"></div></div>
   <div class="loader-text" data-tr="Yükleniyor..." data-ar="جاري التحميل..." data-en="Loading...">Yükleniyor...</div>
 </div>
-
-<!-- Cursor -->
-<div id="cursor-dot"></div>
-<div id="cursor-ring"></div>
 
 <!-- Scroll Progress -->
 <div id="scroll-progress"></div>
@@ -774,7 +738,7 @@
 
 <!-- Navigation -->
 <nav id="navbar">
-  <a href="#hero"><img class="nav-logo" src="/mnt/user-data/uploads/Gemini_Generated_Image_yjeem0yjeem0yjee-Photoroom.png" alt="Dijivoo"/></a>
+  <a href="#hero"><img class="nav-logo" src="Logo.png" alt="Dijivoo"/></a>
   <ul class="nav-links">
     <li><a href="#hero" data-tr="Ana Sayfa" data-ar="الرئيسية" data-en="Home">Ana Sayfa</a></li>
     <li><a href="#services" data-tr="Hizmetler" data-ar="خدماتنا" data-en="Services">Hizmetler</a></li>
@@ -1271,28 +1235,6 @@ function initCanvas() {
   draw();
 }
 
-/* ==========================================
-   CUSTOM CURSOR
-   ========================================== */
-function initCursor() {
-  const dot = document.getElementById('cursor-dot');
-  const ring = document.getElementById('cursor-ring');
-  let rx = 0, ry = 0;
-  document.addEventListener('mousemove', e => {
-    dot.style.left = e.clientX + 'px';
-    dot.style.top = e.clientY + 'px';
-    rx += (e.clientX - rx) * 0.12;
-    ry += (e.clientY - ry) * 0.12;
-    ring.style.left = rx + 'px';
-    ring.style.top = ry + 'px';
-  });
-  function smoothRing() {
-    ring.style.left = rx + 'px';
-    ring.style.top = ry + 'px';
-    requestAnimationFrame(smoothRing);
-  }
-  smoothRing();
-}
 
 /* ==========================================
    TILT EFFECT ON CARDS
@@ -1385,7 +1327,6 @@ document.addEventListener('DOMContentLoaded', () => {
   renderContact();
   observeReveal();
   initCanvas();
-  initCursor();
   initScroll();
   initHamburger();
   initLangButtons();
